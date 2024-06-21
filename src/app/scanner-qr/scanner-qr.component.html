@@ -1,0 +1,26 @@
+<div *ngIf="isBrowser">
+    <zxing-scanner 
+    (scanSuccess)="onCodeResult($event)"
+    (camerasFound)="hasDevices = true"
+    (camerasNotFound)="hasDevices = false"
+    (permissionResponse)="hasPermission = $event"
+    (scanError)="handleError($event)">
+  </zxing-scanner>
+</div>
+
+<div *ngIf="errorMessage">
+    <p>{{ errorMessage }}</p>
+  </div>
+  
+  <div *ngIf="!hasDevices && !errorMessage">
+    <p>No se encontraron cámaras.</p>
+  </div>
+  
+  <div *ngIf="!hasPermission && !errorMessage">
+    <p>Permiso para acceder a la cámara denegado.</p>
+  </div>
+  
+  <div *ngIf="facturaData">
+    <h2>Datos de la Factura</h2>
+    <pre>{{ facturaData | json }}</pre>
+  </div>
